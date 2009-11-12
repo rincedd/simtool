@@ -3,7 +3,6 @@
 	<name>simtool</name>
 	<comment></comment>
 	<projects>
-		<project>largenet</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
@@ -32,7 +31,7 @@
 				</dictionary>
 				<dictionary>
 					<key>org.eclipse.cdt.make.core.buildLocation</key>
-					<value>${workspace_loc:/simtool/Debug}</value>
+					<value>${workspace_loc:/simtool/Release}</value>
 				</dictionary>
 				<dictionary>
 					<key>org.eclipse.cdt.make.core.cleanBuildTarget</key>
