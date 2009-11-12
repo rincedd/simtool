@@ -10,23 +10,71 @@
 #include "output/Outputter.h"
 #include <string>
 #include <fstream>
+#include <boost/noncopyable.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 
-class SimApp
+class SimApp: public boost::noncopyable
 {
 public:
-	SimApp(int argc, char** argv);
-	virtual ~SimApp();
-	virtual int exec() { return 0; }
-	void setAppName(std::string name);
-	void setAppName(const char* name);
-	std::string appName() const;
+	SimApp(int argc, char** argv)
+	{
+	}
+
+	virtual ~SimApp()
+	{ // actually, this is not necessary
+		for (ofstream_ptr_v::iterator i = outStreams_.begin(); i
+				!= outStreams_.end(); ++i)
+			i->close();
+	}
+
+	virtual int exec()
+	{
+		return 0;
+	}
+
+	void setAppName(std::string name)
+	{
+		appName_ = name;
+	}
+
+	void setAppName(const char* name)
+	{
+		appName_ = name;
+	}
+
+	std::string appName() const
+	{
+		return appName_;
+	}
 
 protected:
-	std::ofstream& openOutputStream(std::string filename);
-	void registerOutput(IntervalOutput* output);
-	void writeHeaders();
-	void output(double t);
+	std::ofstream& openOutputStream(std::string filename)
+	{
+		std::auto_ptr<std::ofstream> o(new std::ofstream(filename.c_str()));
+		if (o->bad())
+		{
+			o->close();
+			throw("Could not open " + filename + " for writing!\n");
+		}
+		outStreams_.push_back(o);
+		return outStreams_.back();
+
+	}
+
+	void registerOutput(IntervalOutput* output)
+	{
+		outputter_.addOutput(output);
+	}
+
+	void writeHeaders()
+	{
+		outputter_.writeHeaders();
+	}
+
+	void output(double t)
+	{
+		outputter_.output(t);
+	}
 
 private:
 	std::string appName_;
@@ -34,30 +82,5 @@ private:
 	typedef boost::ptr_vector<std::ofstream> ofstream_ptr_v;
 	ofstream_ptr_v outStreams_;
 };
-
-inline void SimApp::setAppName(std::string name)
-{
-	appName_ = name;
-}
-
-inline void SimApp::setAppName(const char* name)
-{
-	appName_ = name;
-}
-
-inline std::string SimApp::appName() const
-{
-	return appName_;
-}
-
-inline void SimApp::writeHeaders()
-{
-	outputter_.writeHeaders();
-}
-
-inline void SimApp::output(const double t)
-{
-	outputter_.output(t);
-}
 
 #endif /* SIMAPP_H_ */
