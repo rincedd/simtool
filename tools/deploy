@@ -1,0 +1,24 @@
+#!/bin/bash
+
+PROJNAME="simtool"
+BINNAME="lib$PROJNAME.so"
+
+DEST="$HOME/local"
+LIB="$DEST/lib"
+INC="$DEST/include"
+
+SRC="$HOME/workspace/$PROJNAME/src"
+BIN="$HOME/workspace/$PROJNAME/Release"
+
+OBJ=$BINNAME
+
+cp $BIN/$OBJ $LIB
+
+echo "Entering source folder $SRC"
+
+pushd $PWD
+cd $SRC
+find . -name "*.h" -exec cp --parents '{}' $INC \; 
+popd
+
+exit 0
