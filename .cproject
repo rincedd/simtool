@@ -38,7 +38,7 @@
 <tool id="cdt.managedbuild.tool.gnu.c.compiler.exe.debug.1660388113" name="GCC C Compiler" superClass="cdt.managedbuild.tool.gnu.c.compiler.exe.debug">
 <option defaultValue="gnu.c.optimization.level.none" id="gnu.c.compiler.exe.debug.option.optimization.level.767766153" name="Optimization Level" superClass="gnu.c.compiler.exe.debug.option.optimization.level" valueType="enumerated"/>
 <option id="gnu.c.compiler.exe.debug.option.debugging.level.1134612345" name="Debug Level" superClass="gnu.c.compiler.exe.debug.option.debugging.level" value="gnu.c.debugging.level.max" valueType="enumerated"/>
-<option id="gnu.c.compiler.option.include.paths.114663535" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" valueType="includePath"/>
+<option id="gnu.c.compiler.option.include.paths.114663535" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths"/>
 <inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.123976409" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 </tool>
 <tool id="cdt.managedbuild.tool.gnu.c.linker.exe.debug.1804674003" name="GCC C Linker" superClass="cdt.managedbuild.tool.gnu.c.linker.exe.debug">
@@ -46,19 +46,15 @@
 </tool>
 <tool id="cdt.managedbuild.tool.gnu.cpp.linker.exe.debug.28417073" name="GCC C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.exe.debug">
 <option defaultValue="true" id="gnu.cpp.link.option.shared.1201639233" name="Shared (-shared)" superClass="gnu.cpp.link.option.shared" valueType="boolean"/>
-<option id="gnu.cpp.link.option.paths.1626092217" name="Library search path (-L)" superClass="gnu.cpp.link.option.paths" valueType="libPaths">
-<listOptionValue builtIn="false" value="&quot;${workspace_loc:/largenet/Debug}&quot;"/>
-</option>
-<option id="gnu.cpp.link.option.libs.1591394987" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs" valueType="libs">
-<listOptionValue builtIn="false" value="largenet"/>
-</option>
+<option id="gnu.cpp.link.option.paths.1626092217" name="Library search path (-L)" superClass="gnu.cpp.link.option.paths" valueType="libPaths"/>
+<option id="gnu.cpp.link.option.libs.1591394987" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs" valueType="libs"/>
 <inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.987626273" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
 <additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
 <additionalInput kind="additionalinput" paths="$(LIBS)"/>
 </inputType>
 </tool>
 <tool id="cdt.managedbuild.tool.gnu.assembler.exe.debug.204192504" name="GCC Assembler" superClass="cdt.managedbuild.tool.gnu.assembler.exe.debug">
-<option id="gnu.both.asm.option.include.paths.286974081" name="Include paths (-I)" superClass="gnu.both.asm.option.include.paths" valueType="includePath"/>
+<option id="gnu.both.asm.option.include.paths.286974081" name="Include paths (-I)" superClass="gnu.both.asm.option.include.paths"/>
 <inputType id="cdt.managedbuild.tool.gnu.assembler.input.1609449507" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
 </tool>
 </toolChain>
@@ -484,14 +480,6 @@
 </profile>
 </scannerConfigBuildInfo>
 </storageModule>
-<storageModule moduleId="org.eclipse.cdt.core.externalSettings">
-<externalSettings containerId="largenet;cdt.managedbuild.config.gnu.so.debug.801323477" factoryId="org.eclipse.cdt.core.cfg.export.settings.sipplier">
-<externalSetting>
-<entry flags="VALUE_WORKSPACE_PATH" kind="includePath" name="/largenet"/>
-<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/largenet/Debug"/>
-</externalSetting>
-</externalSettings>
-</storageModule>
 <storageModule moduleId="org.eclipse.cdt.core.language.mapping"/>
 <storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
 </cconfiguration>
@@ -525,7 +513,7 @@
 <listOptionValue builtIn="false" value="&quot;${HOME}/local/include&quot;"/>
 </option>
 <option id="gnu.cpp.compiler.option.other.other.1920787816" name="Other flags" superClass="gnu.cpp.compiler.option.other.other" value="-c -fmessage-length=0 -fPIC" valueType="string"/>
-<option id="gnu.cpp.compiler.option.preprocessor.def.461774125" superClass="gnu.cpp.compiler.option.preprocessor.def" valueType="definedSymbols">
+<option id="gnu.cpp.compiler.option.preprocessor.def.461774125" name="Defined symbols (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def" valueType="definedSymbols">
 <listOptionValue builtIn="false" value="NDEBUG"/>
 </option>
 <inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.1375201815" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
@@ -533,7 +521,7 @@
 <tool id="cdt.managedbuild.tool.gnu.c.compiler.exe.release.1306442999" name="GCC C Compiler" superClass="cdt.managedbuild.tool.gnu.c.compiler.exe.release">
 <option defaultValue="gnu.c.optimization.level.most" id="gnu.c.compiler.exe.release.option.optimization.level.117973753" name="Optimization Level" superClass="gnu.c.compiler.exe.release.option.optimization.level" valueType="enumerated"/>
 <option id="gnu.c.compiler.exe.release.option.debugging.level.1350545387" name="Debug Level" superClass="gnu.c.compiler.exe.release.option.debugging.level" value="gnu.c.debugging.level.none" valueType="enumerated"/>
-<option id="gnu.c.compiler.option.include.paths.666971461" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" valueType="includePath"/>
+<option id="gnu.c.compiler.option.include.paths.666971461" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths"/>
 <inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.2096729450" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 </tool>
 <tool id="cdt.managedbuild.tool.gnu.c.linker.exe.release.1900756462" name="GCC C Linker" superClass="cdt.managedbuild.tool.gnu.c.linker.exe.release">
@@ -541,19 +529,15 @@
 </tool>
 <tool id="cdt.managedbuild.tool.gnu.cpp.linker.exe.release.756681221" name="GCC C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.exe.release">
 <option defaultValue="true" id="gnu.cpp.link.option.shared.1464185549" name="Shared (-shared)" superClass="gnu.cpp.link.option.shared" valueType="boolean"/>
-<option id="gnu.cpp.link.option.paths.1299421339" name="Library search path (-L)" superClass="gnu.cpp.link.option.paths" valueType="libPaths">
-<listOptionValue builtIn="false" value="&quot;${HOME}/local/lib&quot;"/>
-</option>
-<option id="gnu.cpp.link.option.libs.1720356647" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs" valueType="libs">
-<listOptionValue builtIn="false" value="largenet"/>
-</option>
+<option id="gnu.cpp.link.option.paths.1299421339" name="Library search path (-L)" superClass="gnu.cpp.link.option.paths" valueType="libPaths"/>
+<option id="gnu.cpp.link.option.libs.1720356647" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs" valueType="libs"/>
 <inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.2057851282" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
 <additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
 <additionalInput kind="additionalinput" paths="$(LIBS)"/>
 </inputType>
 </tool>
 <tool id="cdt.managedbuild.tool.gnu.assembler.exe.release.1001004521" name="GCC Assembler" superClass="cdt.managedbuild.tool.gnu.assembler.exe.release">
-<option id="gnu.both.asm.option.include.paths.904703667" name="Include paths (-I)" superClass="gnu.both.asm.option.include.paths" valueType="includePath"/>
+<option id="gnu.both.asm.option.include.paths.904703667" name="Include paths (-I)" superClass="gnu.both.asm.option.include.paths"/>
 <inputType id="cdt.managedbuild.tool.gnu.assembler.input.1847978360" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
 </tool>
 </toolChain>
