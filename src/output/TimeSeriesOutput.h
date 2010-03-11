@@ -8,9 +8,9 @@
 #define TIMESERIESOUTPUT_H_
 
 #include "IntervalOutput.h"
-#include <network/TripleMultiNetwork.h>
-#include <network/TripleNetwork.h>
 #include <network/motifs/motifs.h>
+#include <network/measures/measures.h>
+#include <iomanip>
 
 /**
  * Outputs numbers of nodes, links, and possibly triples in all states in the network.
@@ -19,15 +19,17 @@ template<class _Network>
 class TimeSeriesOutput: public IntervalOutput
 {
 public:
-	TimeSeriesOutput(std::ostream& out, const _Network& net, double interval);
+	TimeSeriesOutput(std::ostream& out, const _Network& net, double interval,
+			bool countTriples = false);
 	virtual ~TimeSeriesOutput();
 
 private:
 	void doOutput(double t);
 	void doWriteHeader();
-	void addTripleOutput(const char sep) {}
-	void addTripleHeader(const char sep) {}
+	void addTripleOutput(const char sep);
+	void addTripleHeader(const char sep);
 	const _Network& net_;
+	const bool countTriples_;
 	const lnet::motifs::NodeMotifSet nodeMotifs_;
 	const lnet::motifs::LinkMotifSet linkMotifs_;
 	const lnet::motifs::TripleMotifSet tripleMotifs_;
@@ -35,10 +37,11 @@ private:
 
 template<class _Network>
 TimeSeriesOutput<_Network>::TimeSeriesOutput(std::ostream& out,
-		const _Network& net, const double interval) :
-	IntervalOutput(out, interval), net_(net), nodeMotifs_(
-			net.numberOfNodeStates()), linkMotifs_(net.numberOfNodeStates()),
-			tripleMotifs_(net.numberOfNodeStates())
+		const _Network& net, const double interval, const bool countTriples) :
+	IntervalOutput(out, interval), net_(net), countTriples_(countTriples),
+			nodeMotifs_(net.numberOfNodeStates()), linkMotifs_(
+					net.numberOfNodeStates()), tripleMotifs_(
+					net.numberOfNodeStates())
 {
 }
 
@@ -58,8 +61,8 @@ void TimeSeriesOutput<_Network>::doOutput(const double t)
 	for (lnet::motifs::LinkMotifSet::const_iterator it = linkMotifs_.begin(); it
 			!= linkMotifs_.end(); ++it)
 		stream() << sep << net_.numberOfLinks(net_.linkStateCalculator()(*it));
-
-	addTripleOutput(sep);
+	if (countTriples_)
+		addTripleOutput(sep);
 	stream() << "\n";
 }
 
@@ -75,42 +78,25 @@ void TimeSeriesOutput<_Network>::doWriteHeader()
 			!= linkMotifs_.end(); ++it)
 		stream() << tab << *it;
 
-	addTripleHeader(tab);
+	if (countTriples_)
+		addTripleHeader(tab);
 	stream() << "\n";
 }
 
-template<>
-void TimeSeriesOutput<lnet::TripleMultiNetwork>::addTripleHeader(const char sep)
+template<class _Network>
+void TimeSeriesOutput<_Network>::addTripleHeader(const char sep)
 {
 	for (lnet::motifs::TripleMotifSet::const_iterator it =
 			tripleMotifs_.begin(); it != tripleMotifs_.end(); ++it)
 		stream() << sep << *it;
 }
 
-template<>
-void TimeSeriesOutput<lnet::TripleNetwork>::addTripleHeader(const char sep)
+template<class _Network>
+void TimeSeriesOutput<_Network>::addTripleOutput(const char sep)
 {
 	for (lnet::motifs::TripleMotifSet::const_iterator it =
 			tripleMotifs_.begin(); it != tripleMotifs_.end(); ++it)
-		stream() << sep << *it;
-}
-
-template<>
-void TimeSeriesOutput<lnet::TripleMultiNetwork>::addTripleOutput(const char sep)
-{
-	for (lnet::motifs::TripleMotifSet::const_iterator it =
-			tripleMotifs_.begin(); it != tripleMotifs_.end(); ++it)
-		stream() << sep << net_.numberOfTriples(
-				net_.getTripleStateCalculator()(*it));
-}
-
-template<>
-void TimeSeriesOutput<lnet::TripleNetwork>::addTripleOutput(const char sep)
-{
-	for (lnet::motifs::TripleMotifSet::const_iterator it =
-			tripleMotifs_.begin(); it != tripleMotifs_.end(); ++it)
-		stream() << sep << net_.numberOfTriples(
-				net_.getTripleStateCalculator()(*it));
+		stream() << sep << lnet::measures::triples(net_, *it);
 }
 
 #endif /* TIMESERIESOUTPUT_H_ */
