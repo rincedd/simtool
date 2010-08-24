@@ -31,8 +31,6 @@ public:
 private:
 	void doOutput(double t)
 	{
-		stream() << commentChar() << "t = " << std::setprecision(9) << t
-				<< "\n";
 		std::map<lnet::motifs::NodeMotif, lnet::measures::degree_dist_t> dists;
 		lnet::id_size_t maxDegree = 0;
 		for (lnet::motifs::NodeMotifSet::const_iterator motif =
@@ -46,7 +44,7 @@ private:
 		const char tab = '\t';
 		for (lnet::id_size_t k = 0; k < maxDegree; ++k)
 		{
-			stream() << k;
+			stream() << std::setprecision(9) << t << tab << k;
 			for (lnet::motifs::NodeMotifSet::const_iterator motif =
 					nodeMotifs_.begin(); motif != nodeMotifs_.end(); ++motif)
 			{
@@ -63,7 +61,7 @@ private:
 	void doWriteHeader()
 	{
 		const char tab = '\t';
-		stream() << commentChar();
+		stream() << commentChar() << " t" << tab << "k";
 		for (lnet::motifs::NodeMotifSet::const_iterator motif =
 				nodeMotifs_.begin(); motif != nodeMotifs_.end(); ++motif)
 		{
