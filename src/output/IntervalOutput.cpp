@@ -6,8 +6,15 @@
 
 #include "IntervalOutput.h"
 
-IntervalOutput::IntervalOutput(std::ostream& out, const double interval, const std::string commentChar) :
-	interval_(interval), nextOutputTime_(0), out_(out), commentChar_(commentChar)
+namespace sim
+{
+namespace output
+{
+
+IntervalOutput::IntervalOutput(std::ostream& out, const double interval,
+		const std::string commentChar) :
+	interval_(interval), nextOutputTime_(0), out_(out), commentChar_(
+			commentChar)
 {
 }
 
@@ -15,12 +22,14 @@ IntervalOutput::~IntervalOutput()
 {
 }
 
-void IntervalOutput::output(const double t)
+void IntervalOutput::output(const double t, const bool force)
 {
-	if (t >= nextOutputTime_)
+	if (force || t >= nextOutputTime_)
 	{
 		doOutput(t);
 		nextOutputTime_ += interval_;
 	}
 }
 
+}
+}

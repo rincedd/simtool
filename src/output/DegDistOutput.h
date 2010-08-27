@@ -13,6 +13,9 @@
 #include <map>
 #include <iomanip>
 
+namespace sim {
+namespace output {
+
 /**
  * Calculates and outputs the degree distribution for each node state in the network.
  */
@@ -74,5 +77,8 @@ private:
 	const _Network& net_;
 	lnet::motifs::NodeMotifSet nodeMotifs_;
 };
+
+}
+}
 
 #endif /* DEGDISTOUTPUT_H_ */

@@ -1,22 +1,27 @@
 /**
- * @file StochasticSimulation.h
+ * @file DirectMethod.h
  * @date 13.07.2009
  * @author gerd
  */
 
-#ifndef STOCHASTICSIMULATION_H_
-#define STOCHASTICSIMULATION_H_
+#ifndef DIRECTMETHOD_H_
+#define DIRECTMETHOD_H_
 
 #include <vector>
 #include <boost/function.hpp>
 
-class StochasticSimulation
+namespace sim
+{
+namespace gillespie
+{
+
+class DirectMethod
 {
 public:
 	typedef boost::function<double()> RateFunctor;
 	typedef boost::function<void()> ProcFunctor;
 
-	StochasticSimulation();
+	DirectMethod();
 	void registerProcess(const RateFunctor& rateFunc,
 			const ProcFunctor& procFunc);
 	double step();
@@ -29,7 +34,7 @@ private:
 	std::vector<ProcFunctor> procFuncs_;
 };
 
-inline void StochasticSimulation::registerProcess(const RateFunctor& rateFunc,
+inline void DirectMethod::registerProcess(const RateFunctor& rateFunc,
 		const ProcFunctor& procFunc)
 {
 	pr_.push_back(pr_.size());
@@ -38,9 +43,12 @@ inline void StochasticSimulation::registerProcess(const RateFunctor& rateFunc,
 	rates_.push_back(rateFunc());
 }
 
-inline unsigned int StochasticSimulation::countReactions() const
+inline unsigned int DirectMethod::countReactions() const
 {
 	return rateFuncs_.size();
 }
 
-#endif /* STOCHASTICSIMULATION_H_ */
+}
+}
+
+#endif /* DIRECTMETHOD_H_ */

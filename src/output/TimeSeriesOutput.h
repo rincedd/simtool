@@ -12,6 +12,9 @@
 #include <network/measures/measures.h>
 #include <iomanip>
 
+namespace sim {
+namespace output {
+
 /**
  * Outputs numbers of nodes, links, and possibly triples in all states in the network.
  */
@@ -97,6 +100,9 @@ void TimeSeriesOutput<_Network>::addTripleOutput(const char sep)
 	for (lnet::motifs::TripleMotifSet::const_iterator it =
 			tripleMotifs_.begin(); it != tripleMotifs_.end(); ++it)
 		stream() << sep << lnet::measures::triples(net_, *it);
+}
+
+}
 }
 
 #endif /* TIMESERIESOUTPUT_H_ */

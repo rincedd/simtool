@@ -13,6 +13,9 @@
 #include <boost/noncopyable.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 
+namespace sim
+{
+
 class SimApp: public boost::noncopyable
 {
 public:
@@ -22,9 +25,9 @@ public:
 
 	virtual ~SimApp()
 	{ // actually, this is not necessary
-		for (ofstream_ptr_v::iterator i = outStreams_.begin(); i
-				!= outStreams_.end(); ++i)
-			i->close();
+//		for (ofstream_ptr_v::iterator i = outStreams_.begin(); i
+//				!= outStreams_.end(); ++i)
+//			i->close();
 	}
 
 	virtual int exec()
@@ -61,7 +64,7 @@ protected:
 
 	}
 
-	void registerOutput(IntervalOutput* output)
+	void registerOutput(output::IntervalOutput* output)
 	{
 		outputter_.addOutput(output);
 	}
@@ -71,16 +74,16 @@ protected:
 		outputter_.writeHeaders();
 	}
 
-	void output(double t)
+	void output(double t, bool force=false)
 	{
-		outputter_.output(t);
+		outputter_.output(t, force);
 	}
 
 private:
 	std::string appName_;
-	Outputter outputter_;
+	output::Outputter outputter_;
 	typedef boost::ptr_vector<std::ofstream> ofstream_ptr_v;
 	ofstream_ptr_v outStreams_;
 };
-
+}
 #endif /* SIMAPP_H_ */

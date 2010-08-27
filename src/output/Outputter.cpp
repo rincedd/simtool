@@ -7,6 +7,11 @@
 #include "Outputter.h"
 #include "IntervalOutput.h"
 
+namespace sim
+{
+namespace output
+{
+
 Outputter::Outputter()
 {
 }
@@ -20,11 +25,11 @@ void Outputter::addOutput(IntervalOutput* output)
 	outputs_.push_back(output);
 }
 
-void Outputter::output(const double t)
+void Outputter::output(const double t, const bool force)
 {
 	for (OutputVector::iterator it = outputs_.begin(); it != outputs_.end(); ++it)
 	{
-		it->output(t);
+		it->output(t, force);
 	}
 }
 
@@ -34,4 +39,7 @@ void Outputter::writeHeaders()
 	{
 		it->writeHeader();
 	}
+}
+
+}
 }

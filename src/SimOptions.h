@@ -11,6 +11,9 @@
 #include <iostream>
 #include <boost/noncopyable.hpp>
 
+namespace sim
+{
+
 class SimOptions: public boost::noncopyable
 {
 public:
@@ -34,4 +37,5 @@ inline std::ostream& operator<<(std::ostream &out, const SimOptions& o)
 	return out;
 }
 
+}
 #endif /* SIMOPTIONS_H_ */

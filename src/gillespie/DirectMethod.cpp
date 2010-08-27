@@ -1,19 +1,24 @@
 /**
- * @file StochasticSimulation.cpp
+ * @file DirectMethod.cpp
  * @date 14.07.2009
  * @author gerd
  */
 
-#include "StochasticSimulation.h"
+#include "DirectMethod.h"
 #include <myrng1.2/myrngWELL.h>
 #include <algorithm>
 #include <cassert>
 
-StochasticSimulation::StochasticSimulation()
+namespace sim
+{
+namespace gillespie
+{
+
+DirectMethod::DirectMethod()
 {
 }
 
-double StochasticSimulation::step()
+double DirectMethod::step()
 {
 	assert(rates_.size() == pr_.size());
 	assert(rateFuncs_.size() == pr_.size());
@@ -37,6 +42,10 @@ double StochasticSimulation::step()
 	// call process k
 	procFuncs_[pr_[k]]();
 
-	if (k > 0) std::swap(pr_[k], pr_[k-1]);
+	if (k > 0)
+		std::swap(pr_[k], pr_[k - 1]);
 	return tau;
+}
+
+}
 }
