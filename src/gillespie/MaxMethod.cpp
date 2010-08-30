@@ -36,12 +36,13 @@ double MaxMethod::step()
 			processes_.size(), 0.0);
 
 	// fill max_rates vector
-	transform(processes_.begin(), processes_.end(), max_rates.begin(),
-			bind(&Process::maxRate, _1));
+	transform(processes_.begin(), processes_.end(), max_rates.begin(), bind(
+			&Process::maxRate, _1));
 
 	// fill max_rates_times_sizes vector
 	transform(processes_.begin(), processes_.end(), max_rates.begin(),
-			max_rates_times_sizes.begin(), bind(multiplies<double>(), bind(&Process::populationSize, _1), _2));
+			max_rates_times_sizes.begin(), bind(multiplies<double> (), bind(
+					&Process::populationSize, _1), _2));
 
 	// calculate 1 / sum(max_rate*pop_size)
 	double inv_total_max_rate_times_size = 1.0 / accumulate(
@@ -51,7 +52,8 @@ double MaxMethod::step()
 	// FIXME: potential performance issue
 	RateVector process_probs(processes_.size(), 0.0);
 	transform(max_rates_times_sizes.begin(), max_rates_times_sizes.end(),
-			process_probs.begin(), bind(multiplies<double>(), _1, inv_total_max_rate_times_size));
+			process_probs.begin(), bind(multiplies<double> (), _1,
+					inv_total_max_rate_times_size));
 	double tau = 0;
 	while (true)
 	{
