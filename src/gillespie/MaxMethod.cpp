@@ -11,6 +11,7 @@
 #include <functional>
 #include <numeric>
 #include <boost/bind.hpp>
+#include <boost/format.hpp>
 
 using namespace std;
 using namespace boost;
@@ -45,24 +46,31 @@ double MaxMethod::step()
 					&Process::populationSize, _1), _2));
 
 	// calculate 1 / sum(max_rate*pop_size)
-	double inv_total_max_rate_times_size = 1.0 / accumulate(
+	const double total_max_rate_times_size = accumulate(
 			max_rates_times_sizes.begin(), max_rates_times_sizes.end(), 0.0);
+	if (total_max_rate_times_size == 0.0)
+		return 1000;
 
-	// calculate probabilities for each process
-	// FIXME: potential performance issue
-	RateVector process_probs(processes_.size(), 0.0);
-	transform(max_rates_times_sizes.begin(), max_rates_times_sizes.end(),
-			process_probs.begin(), bind(multiplies<double> (), _1,
-					inv_total_max_rate_times_size));
+	const double inv_total_max_rate_times_size = 1.0 / total_max_rate_times_size;
+
 	double tau = 0;
 	while (true)
 	{
 		// draw length of this time step from exponential distribution
 		tau += rng.Exponential(inv_total_max_rate_times_size);
-		// pick process with probability max_rate * pop_size / sum(max_rate * pop_size)
-		int k = rng.Choices(&(process_probs.front()), process_probs.size());
+
+		// pick process with probability max_rate_times_size / total_max_rate_times_size
+		// we do not use rng.Choices() here, as we would have to supply all probabilities with proper
+		// normalization, potentially leading to rounding/truncation errors
+		const double u = rng.Uniform01() * total_max_rate_times_size;
+		unsigned int k = 0;
+		double s = max_rates_times_sizes[k];
+		while (s < u && k < max_rates_times_sizes.size() - 1)
+			s += max_rates_times_sizes[++k];
+
+		// execute process with probability agent_rate / max_rate
 		Agent* a = processes_[k].randomAgent();
-		double prob = processes_[k].agentRate(a) / max_rates[k];
+		const double prob = processes_[k].agentRate(a) / max_rates[k];
 		if (rng.Chance(prob))
 		{
 			processes_[k](a);
