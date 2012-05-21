@@ -9,6 +9,7 @@
 
 #include "output/Outputter.h"
 #include <string>
+#include <iostream>
 #include <fstream>
 #include <boost/noncopyable.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>

@@ -8,8 +8,8 @@
 #define TIMESERIESOUTPUT_H_
 
 #include "IntervalOutput.h"
-#include <network/motifs/motifs.h>
-#include <network/measures/measures.h>
+#include <largenet/motifs.h>
+#include <largenet/measures/measures.h>
 #include <iomanip>
 
 namespace sim {
